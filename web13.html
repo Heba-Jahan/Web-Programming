@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>~* JS String Zone *~</title>
+
+<style>
+/* 90s Web Background & Typography */
+body {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #000080; /* Classic Navy */
+    background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+    background-size: 20px 20px; /* Subtle grid feel */
+    color: #00FF00; /* Matrix Green */
+    padding: 30px;
+    line-height: 1.4;
+}
+
+/* The "Window" Container */
+.container {
+    max-width: 650px;
+    margin: auto;
+    background: #c0c0c0; /* Windows 95 Grey */
+    padding: 5px;
+    border-top: 4px solid #ffffff;
+    border-left: 4px solid #ffffff;
+    border-right: 4px solid #808080;
+    border-bottom: 4px solid #808080;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+}
+
+.inner-content {
+    background: #000;
+    padding: 20px;
+    border: 2px inset #808080;
+}
+
+h2 {
+    text-align: center;
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    margin: -25px -20px 20px -20px;
+    padding: 5px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+label {
+    display: block;
+    color: #ff00ff; /* Neon Pink */
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Chunky Inputs */
+input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 5px 0;
+    background: #fff;
+    color: #000;
+    border: 3px inset #808080;
+    font-family: "Courier New", bold;
+}
+
+/* 3D Beveled Buttons */
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #c0c0c0;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border-top: 3px solid #ffffff;
+    border-left: 3px solid #ffffff;
+    border-right: 3px solid #404040;
+    border-bottom: 3px solid #404040;
+    text-transform: uppercase;
+}
+
+button:active {
+    border-top: 3px solid #404040;
+    border-left: 3px solid #404040;
+    border-right: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+}
+
+button:hover {
+    background: #dcdcdc;
+    color: #000080;
+}
+
+.result {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #ffff00; /* Construction Yellow */
+    border-bottom: 1px dashed #ffff00;
+    padding-bottom: 5px;
+    font-size: 13px;
+}
+
+/* Retro Blink Effect */
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+marquee {
+    background: #ffff00;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <marquee>*** Welcome to the String Manipulation using JavaScript ***</marquee>
+    
+    <div class="inner-content">
+        <h2>String_Functions.exe</h2>
+
+        <label>> USERNAME_ID (min 6 chars)</label>
+        <input type="text" id="username" placeholder="Type here...">
+        <button onclick="checkUsername()">[ EXECUTE CHECK ]</button>
+        <p class="result" id="userResult">SYSTEM READY...</p>
+
+        <label>> EMAIL_VERIFY (.edu)</label>
+        <input type="text" id="email">
+        <button onclick="checkEmail()">[ VALIDATE ]</button>
+        <p class="result" id="emailResult"></p>
+
+        <label>> PASSWORD_ENCRYPT</label>
+        <input type="password" id="password">
+        <button onclick="checkPassword()">[ TEST STRENGTH ]</button>
+        <p class="result" id="passResult"></p>
+
+        <label>> USER_GREETING</label>
+        <input type="text" id="name">
+        <button onclick="greetUser()">[ INITIALIZE HELLO ]</button>
+        <p class="result" id="greetResult"></p>
+
+        <hr style="border: 1px solid #808080; margin: 20px 0;">
+
+        <label>> STRING_SEARCH</label>
+        <input type="text" id="sentence" placeholder="Main sentence...">
+        <input type="text" id="word" placeholder="Target word...">
+        <button onclick="searchWord()">[ SCAN TEXT ]</button>
+        <p class="result" id="searchResult"></p>
+
+        <label>> CHAR_COUNTER</label>
+        <input type="text" id="charString">
+        <input type="text" id="char" maxlength="1" style="width: 40px;">
+        <button onclick="countChar()">[ RUN COUNTER ]</button>
+        <p class="result" id="countResult"></p>
+
+        <label>> INITIALS_GENERATOR</label>
+        <input type="text" id="scientist" value="marie curie">
+        <button onclick="displayInitials()">[ EXTRACT INITIALS ]</button>
+        <p class="result" id="initialResult"></p>
+        
+        <p style="text-align:center; font-size: 10px; color: #808080;">
+            Best viewed in <span class="blink">Netscape Navigator 4.0</span>
+        </p>
+    </div>
+</div>
+
+<script>
+    function checkUsername() {
+        let u = document.getElementById("username").value;
+        let res = document.getElementById("userResult");
+        if(u.length >= 6 && !u.includes(" ")) {
+            res.innerText = "ACCESS GRANTED: Valid Username";
+            res.style.color = "#00FF00";
+        } else {
+            res.innerText = "ERROR: Invalid Username";
+            res.style.color = "#FF0000";
+        }
+    }
+
+    function checkEmail() {
+        let e = document.getElementById("email").value;
+        document.getElementById("emailResult").innerText = e.endsWith(".edu") ? "EMAIL VALID" : "EMAIL REJECTED";
+    }
+
+    function checkPassword() {
+        let p = document.getElementById("password").value;
+        let hasUpper = /[A-Z]/.test(p);
+        document.getElementById("passResult").innerText = (p.length >= 8 && hasUpper) ? "STATUS: STRONG" : "STATUS: WEAK";
+    }
+
+    function greetUser() {
+        let name = document.getElementById("name").value;
+        document.getElementById("greetResult").innerText = "SYSTEM_MSG: HELLO " + name.toUpperCase() + "!";
+    }
+
+    function searchWord() {
+        let sentence = document.getElementById("sentence").value;
+        let word = document.getElementById("word").value;
+        document.getElementById("searchResult").innerText = sentence.includes(word) ? "MATCH FOUND" : "NO MATCH";
+    }
+
+    function countChar() {
+        let str = document.getElementById("charString").value;
+        let ch = document.getElementById("char").value;
+        let count = 0;
+        for(let i=0; i<str.length; i++) { if(str[i] === ch) count++; }
+        document.getElementById("countResult").innerText = "TALLY: " + count + " OCCURRENCES";
+    }
+
+    function displayInitials() {
+        let text = document.getElementById("scientist").value;
+        let words = text.split(" ");
+        if(words.length >= 2) {
+            let initials = words[0][0].toUpperCase() + "." + words[1][0].toUpperCase() + ".";
+            document.getElementById("initialResult").innerText = "INITIALS: " + initials;
+        } else {
+            document.getElementById("initialResult").innerText = "INPUT ERROR: 2 WORDS REQ.";
+        }
+    }
+</script>
+
+</body>
+</html>
